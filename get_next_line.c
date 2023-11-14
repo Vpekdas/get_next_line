@@ -24,12 +24,10 @@ char	*get_next_line(int fd)
 		if (buffer[i] == '\n')
 		{
 			line = ft_strdup(buffer);
-			i++;
 			return (line);
 		}
 		if (buffer[i] == '\0')
 			return (NULL);
-		else
 		i++;
 	}
 }
