@@ -11,8 +11,8 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-void	*ft_memmove(void *dst, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strchr(const char *s, int c);
 
 #endif
