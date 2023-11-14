@@ -4,13 +4,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	char			*line;
-	static ssize_t	i;
-	static int		bytes;
+	static char	*buffer;
+	char		*line;
+	ssize_t		i;
+	int			bytes;
 
-
-	i = 0;
 	bytes = 0;
 	buffer = NULL;
 	if (buffer == NULL)
@@ -18,17 +16,18 @@ char	*get_next_line(int fd)
 		buffer = malloc(BUFFER_SIZE + 1);
 		if (!buffer)
 			return (NULL);
+		i = 0;
 	}
 	while (1)
 	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
+		bytes = read(fd, buffer, BUFFER_SIZE + 1);
 		if (buffer[i] == '\n')
 		{
 			line = ft_strdup(buffer);
 			i++;
 			return (line);
 		}
-		else if (buffer[i] == '\0')
+		if (buffer[i] == '\0')
 			return (NULL);
 		else
 		i++;
@@ -37,6 +36,9 @@ char	*get_next_line(int fd)
 int	main () {
 	int fd = open("test.txt", O_RDONLY);
 	char	*line;
+	
+	line = get_next_line(fd);
+	printf("%s\n", line);
 	line = get_next_line(fd);
 	printf("%s\n", line);
 }
