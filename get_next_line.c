@@ -50,6 +50,7 @@ char	*ft_read_fd(int fd, char *tab)
 	int		bytes;
 	char	*buffer;
 
+	bytes = 1;
 	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
 		return (NULL);
@@ -61,7 +62,7 @@ char	*ft_read_fd(int fd, char *tab)
 			tab = ft_strjoin("", buffer);
 		else
 		tab = ft_strjoin(tab, buffer);
-		if (ft_strchr(tab, '\n'))
+		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
 	return (tab);
@@ -86,6 +87,24 @@ char	*ft_line(char *str)
 	return (line);
 }
 
+char	*ft_next_line(char	*str)
+{
+	int		index_str;
+	int		i;
+	char	*line;
+
+	i = 0;
+	index_str = ft_count_len(str) + 1;
+	line = ft_calloc(ft_strlen(str) - ft_count_len(str) + 1, 1);
+	while (str[index_str])
+	{
+		line[i] = str[index_str];
+		i++;
+		index_str++;
+	}
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
@@ -93,6 +112,7 @@ char	*get_next_line(int fd)
 
 	buffer = ft_read_fd(fd, buffer);
 	line = ft_line(buffer);
+	buffer = ft_next_line(buffer);
 	return (line);
 }
 
@@ -100,6 +120,12 @@ int	main () {
 	int fd = open("test.txt", O_RDONLY);
 	char	*line;
 	
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	line = get_next_line(fd);
+	printf("%s\n", line);
 	line = get_next_line(fd);
 	printf("%s\n", line);
 }
