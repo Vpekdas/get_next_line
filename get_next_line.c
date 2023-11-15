@@ -20,6 +20,8 @@ int	ft_count_len_line(char *str)
 	int	count;
 
 	count = 0;
+	if (!str)
+		return (count);
 	while (*str)
 	{
 		if (*str != '\n')
@@ -38,8 +40,6 @@ char	*ft_read_fd(int fd, char *tab)
 	int		bytes;
 	char	*buffer;
 
-	if (!fd)
-		return (NULL);
 	bytes = 1;
 	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
@@ -49,7 +49,7 @@ char	*ft_read_fd(int fd, char *tab)
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < -1)
 		{
-			free (tab);
+			free (buffer);
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
@@ -112,9 +112,11 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (!fd)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = ft_read_fd(fd, buffer);
+	if (!buffer)
+		return (NULL);
 	line = ft_line(buffer);
 	buffer = ft_next_line(buffer);
 	if (!*line)
