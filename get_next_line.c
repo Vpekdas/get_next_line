@@ -27,7 +27,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_count_len(char *str)
+int	ft_count_len_line(char *str)
 {
 	int	count;
 
@@ -74,7 +74,7 @@ char	*ft_line(char *str)
 	int		i;
 
 	i = 0;
-	line = ft_calloc(ft_count_len(str) + 2, 1);
+	line = ft_calloc(ft_count_len_line(str) + 2, 1);
 	while (str[i] && str[i] != '\n')
 	{
 		line[i] = str[i];
@@ -94,8 +94,8 @@ char	*ft_next_line(char	*str)
 	char	*line;
 
 	i = 0;
-	index_str = ft_count_len(str) + 1;
-	line = ft_calloc(ft_strlen(str) - ft_count_len(str) + 1, 1);
+	index_str = ft_count_len_line(str) + 1;
+	line = ft_calloc(ft_strlen(str) - ft_count_len_line(str) + 1, 1);
 	while (str[index_str])
 	{
 		line[i] = str[index_str];
