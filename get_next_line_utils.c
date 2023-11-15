@@ -1,37 +1,18 @@
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
-	char	ch;
+	size_t			i;
+	unsigned char	*ptr;
 
-	ch = (char) c;
+	ptr = s;
 	i = 0;
-	while (s[i])
+	while (i < n)
 	{
-		if (s[i] == ch)
-		{
-			return ((char *)(s + i));
-		}
+		ptr[i] = c;
 		i++;
 	}
-	if (ch == 0)
-	{
-		return ((char *)(s + i));
-	}
-	return (NULL);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
+	return (s);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -69,4 +50,37 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)(s + i));
 	}
 	return (NULL);
+}
+static char	*ft_strcat(char *dest, char const *src)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(dest);
+	while (src[i])
+	{
+		dest[len] = src[i];
+		i++;
+		len++;
+	}
+	dest[len] = '\0';
+	return (dest);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+	size_t	len;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	ptr = malloc(len);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, '\0', len);
+	ft_strcat(ptr, s1);
+	ft_strcat(ptr, s2);
+	return (ptr);
 }

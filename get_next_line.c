@@ -15,28 +15,75 @@
 #include <stdio.h>
 #include <unistd.h>
 
-char	*ft_read_fd(int fd, char *buffer)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
-	int	bytes;
+	size_t	i;
 
 	i = 0;
-	bytes = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_count_len(char *str)
+{
+	int	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str != '\n')
+		{
+			count++;
+			str++;
+		}
+		else
+			return (count);
+	}
+	return (count);
+}
+
+char	*ft_read_fd(int fd, char *tab)
+{
+	int		bytes;
+	char	*buffer;
+
 	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
 		return (NULL);
-	while (bytes < 0)
+	while (bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (ft_strchr(buffer, '\n'))
-		{
-			while (buffer[i] && buffer[i] != '\n')
-			{
-				i++;
-			}
-		}
+		buffer[bytes] = '\0';
+		if (!tab)
+			tab = ft_strjoin("", buffer);
+		else
+		tab = ft_strjoin(tab, buffer);
+		if (ft_strchr(tab, '\n'))
+			break ;
 	}
-	return (buffer);
+	return (tab);
+}
+
+char	*ft_line(char *str)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = ft_calloc(ft_count_len(str) + 2, 1);
+	while (str[i] && str[i] != '\n')
+	{
+		line[i] = str[i];
+		i++;
+	}
+	if (str[i] && str[i] == '\n')
+	{
+		line[i] = '\n';
+	}
+	return (line);
 }
 
 char	*get_next_line(int fd)
@@ -44,14 +91,15 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
+	buffer = ft_read_fd(fd, buffer);
+	line = ft_line(buffer);
+	return (line);
 }
 
 int	main () {
 	int fd = open("test.txt", O_RDONLY);
 	char	*line;
 	
-	line = get_next_line(fd);
-	printf("%s\n", line);
 	line = get_next_line(fd);
 	printf("%s\n", line);
 }
