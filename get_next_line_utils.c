@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/15 14:54:18 by vopekdas          #+#    #+#             */
+/*   Updated: 2023/11/15 14:54:19 by vopekdas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 void	*ft_memset(void *s, int c, size_t n)
@@ -51,36 +63,44 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (NULL);
 }
-static char	*ft_strcat(char *dest, char const *src)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(dest);
-	while (src[i])
-	{
-		dest[len] = src[i];
-		i++;
-		len++;
-	}
-	dest[len] = '\0';
-	return (dest);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ptr;
 	size_t	len;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (NULL);
+	i = 0;
+	j = 0;
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	ptr = malloc(len);
 	if (!ptr)
 		return (NULL);
 	ft_memset(ptr, '\0', len);
-	ft_strcat(ptr, s1);
-	ft_strcat(ptr, s2);
+	while (s1[i])
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[i])
+	{
+		ptr[i++] = s2[j++];
+	}
+	ptr[i] = '\0';
 	return (ptr);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
 }

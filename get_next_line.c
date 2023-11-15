@@ -6,7 +6,7 @@
 /*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:43:04 by vopekdas          #+#    #+#             */
-/*   Updated: 2023/11/14 16:10:37 by vopekdas         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:41:01 by vopekdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 int	ft_count_len_line(char *str)
 {
@@ -50,6 +38,8 @@ char	*ft_read_fd(int fd, char *tab)
 	int		bytes;
 	char	*buffer;
 
+	if (!fd)
+		return (NULL);
 	bytes = 1;
 	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
@@ -57,10 +47,14 @@ char	*ft_read_fd(int fd, char *tab)
 	while (bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < -1)
+		{
+			free (tab);
+			return (NULL);
+		}
 		buffer[bytes] = '\0';
 		if (!tab)
 			tab = ft_strjoin("", buffer);
-		else
 		tab = ft_strjoin(tab, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -74,16 +68,20 @@ char	*ft_line(char *str)
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	line = ft_calloc(ft_count_len_line(str) + 2, 1);
+	if (!line)
+		return (NULL);
 	while (str[i] && str[i] != '\n')
 	{
 		line[i] = str[i];
 		i++;
 	}
 	if (str[i] && str[i] == '\n')
-	{
 		line[i] = '\n';
-	}
+	if (str[i] && str[i] == '\0')
+		line[i] = '\0';
 	return (line);
 }
 
@@ -93,14 +91,18 @@ char	*ft_next_line(char	*str)
 	int		i;
 	char	*line;
 
+	if (!str)
+		return (NULL);
 	i = 0;
-	index_str = ft_count_len_line(str) + 1;
+	index_str = ft_count_len_line(str);
 	line = ft_calloc(ft_strlen(str) - ft_count_len_line(str) + 1, 1);
+	if (!line)
+		return (NULL);
+	if (str[index_str])
+		index_str++;
 	while (str[index_str])
 	{
-		line[i] = str[index_str];
-		i++;
-		index_str++;
+		line[i++] = str[index_str++];
 	}
 	return (line);
 }
@@ -110,16 +112,22 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
+	if (!fd)
+		return (NULL);
 	buffer = ft_read_fd(fd, buffer);
 	line = ft_line(buffer);
 	buffer = ft_next_line(buffer);
+	if (!*line)
+		return (NULL);
 	return (line);
 }
 
 int	main () {
 	int fd = open("test.txt", O_RDONLY);
 	char	*line;
-	
+
+	line = get_next_line(fd);
+	printf("%s\n", line);
 	line = get_next_line(fd);
 	printf("%s\n", line);
 	line = get_next_line(fd);
