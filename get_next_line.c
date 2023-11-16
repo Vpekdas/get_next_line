@@ -104,6 +104,7 @@ char	*ft_next_line(char	*str)
 	{
 		line[i++] = str[index_str++];
 	}
+	free(str);
 	return (line);
 }
 
@@ -116,10 +117,13 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = ft_read_fd(fd, buffer);
 	if (!buffer)
+	{
+		free(buffer);
 		return (NULL);
+	}	
 	line = ft_line(buffer);
 	buffer = ft_next_line(buffer);
-	if (!*line)
+	if (!*line || !buffer)
 		return (NULL);
 	return (line);
 }
