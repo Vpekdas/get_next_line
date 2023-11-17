@@ -18,20 +18,12 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <string.h>
-# include <stdint.h>
-
-# define BUFFER_SIZE 1024
 
 char		*get_next_line(int fd);
 char		*ft_strchr(const char *s, int c);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_memset(void *s, int c, size_t n);
-char		*ft_strjoin(char const *s1, char const *s2);
-static char	*ft_strcat(char *dest, char const *src);
+char 		*ft_strjoin_and_free(char *s1, char *s2);
 size_t		ft_strlen(const char *s);
 
 #endif
