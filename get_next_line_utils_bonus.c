@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:54:18 by vopekdas          #+#    #+#             */
-/*   Updated: 2023/11/15 14:54:19 by vopekdas         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:44:36 by vopekdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -64,33 +64,32 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char *ft_strjoin_and_free(char *s1, char *s2)
+char	*ft_strjoin_and_free(char *s1, char *s2)
 {
-    char *ptr;
-    size_t len;
-    size_t i;
-    size_t j;
-	
-    if (!s1 || !s2)
-        return NULL;
-    i = 0;
-    j = 0;
-    len = ft_strlen(s1) + ft_strlen(s2) + 1;
-    ptr = malloc(len);
-    if (!ptr)
-        return NULL;
-    while (s1[i])
-	{
-        ptr[i] = s1[i];
-        i++;
-    }
-    while (s2[j])
-        ptr[i++] = s2[j++];
-    ptr[i] = '\0';
-    free(s1);
-    return ptr;
-}
+	char	*ptr;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	ptr = malloc(len);
+	if (!ptr)
+		return (NULL);
+	while (s1[i])
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		ptr[i++] = s2[j++];
+	ptr[i] = '\0';
+	free(s1);
+	return (ptr);
+}
 
 size_t	ft_strlen(const char *s)
 {
