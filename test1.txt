@@ -1,0 +1,2 @@
+hello this is the first line of firsttxt
+hello this is the second line of firsttxt
