@@ -6,7 +6,7 @@
 /*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:44:29 by vopekdas          #+#    #+#             */
-/*   Updated: 2023/11/29 10:42:46 by vopekdas         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:44:00 by vopekdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <stddef.h>
-  
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif

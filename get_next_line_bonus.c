@@ -6,7 +6,7 @@
 /*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:25:23 by vopekdas          #+#    #+#             */
-/*   Updated: 2023/11/29 10:44:26 by vopekdas         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:42:40 by vopekdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*read_fd(int fd, char *line)
 	bytes = 1;
 	if (!line)
 		line = ft_calloc(1, 1);
-	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
+	buffer = malloc(BUFFER_SIZE + 1);
 	while (bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
