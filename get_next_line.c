@@ -89,7 +89,7 @@ char	*ft_remaining_char_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[5];
+	static char	*buffer[10496];
 	char		*line;
 
 	if (fd == -1 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
