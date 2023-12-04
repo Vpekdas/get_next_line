@@ -1,2 +1,0 @@
-hello this is the first line of secondtxt
-second line of secondtxt
