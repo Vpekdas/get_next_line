@@ -6,7 +6,7 @@
 /*   By: vopekdas <vopekdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:25:23 by vopekdas          #+#    #+#             */
-/*   Updated: 2023/11/29 12:15:13 by vopekdas         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:17:01 by vopekdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,36 +113,4 @@ char	*get_next_line(int fd)
 	line = ft_line(buffer[fd]);
 	buffer[fd] = ft_remaining_char_buffer(buffer[fd]);
 	return (line);
-}
-
-#include <stdio.h>
-#include <fcntl.h>
-
-int	main () {
-
-	int	fd1 = open("test1.txt", O_RDONLY);
-	int	fd2 = open("test2.txt", O_RDONLY);
-	int	fd3 = open("test3.txt", O_RDONLY);
-
-	char*	line1;
-	char*	line2;
-	char*	line3;
-	
-	line1 = get_next_line(fd1);
-	printf("%s", line1);
-	free(line1);
-	line1 = get_next_line(fd1);
-	printf("%s", line1);
-	free(line1);
-	line1 = get_next_line(fd1);
-	printf("%s", line1);
-	free(line1);
-	line2 = get_next_line(fd2);
-	printf("%s", line2);
-	free(line2);
-	line3 = get_next_line(fd3);
-	printf("%s", line3);
-	free(line3);
-
-	printf("%s", get_next_line(0));
 }
