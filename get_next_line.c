@@ -42,6 +42,7 @@ char	*read_fd(int fd, char *line)
 		if (bytes == -1)
 		{
 			free(buffer);
+			free(line);
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
@@ -104,7 +105,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[10496];
 	char		*line;
 
-	if (fd == -1 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd == -1 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer[fd] = read_fd(fd, buffer[fd]);
 	if (!buffer[fd])
