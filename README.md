@@ -30,6 +30,17 @@ Ahoy, fellow coders! Welcome to `get_next_line`, my third expedition at Ecole 42
 
 `get_next_line` is a function designed to read a line from a file descriptor and handle multiple file descriptors concurrently. It utilizes static variables to maintain the state between successive calls, allowing for efficient and seamless reading of text from various sources. Importantly, if the file is not too large, the function can read an entire file descriptor over multiple calls.
 
+# Table of Contents
+
+- [get_next_line - Reading a line from a fd is way too tedious](#get_next_line---reading-a-line-from-a-fd-is-way-too-tedious)
+  - [Overview](#overview)
+  - [Key Features](#key-features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+
 ## Key Features
 
 - **Simultaneous Reading:** Read from multiple file descriptors without losing track of each file's position.
