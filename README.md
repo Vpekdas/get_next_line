@@ -1,121 +1,244 @@
-# get_next_line - Reading a line from a fd is way too tedious
-
-```
-*******************************************************************************
-          |                   |                  |                     |
- _________|________________.=""_;=.______________|_____________________|_______
-|                   |  ,-"_,=""     `"=.|                  |
-|___________________|__"=._o`"-._        `"=.______________|___________________
-          |                `"=._o`"=._      _`"=._                     |
- _________|_____________________:=._o "=._."_.-="'"=.__________________|_______
-|                   |    __.--" , ; `"=._o." ,-"""-._ ".   |
-|___________________|_._"  ,. .` ` `` ,  `"-._"-._   ". '__|___________________
-          |           |o`"=._` , "` `; .". ,  "-._"-._; ;              |
- _________|___________| ;`-.o`"=._; ." ` '`."\` . "-._ /_______________|_______
-|                   | |o;    `"-.o`"=._``  '` " ,__.--o;   |
-|___________________|_| ;     (#) `-.o `"=.`_.--"_o.-; ;___|___________________
-____/______/______/___|o;._    "      `".o|o_.--"    ;o;____/______/______/____
-/______/______/______/_"=._o--._        ; | ;        ; ;/______/______/______/_
-____/______/______/______/__"=._o--._   ;o|o;     _._;o;____/______/______/____
-/______/______/______/______/____"=._o._; | ;_.--"o.--"_/______/______/______/_
-____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
-/______/______/______/______/______/______/______/______/______/______/[TomekK]
-*******************************************************************************
-```
-
-
-Ahoy, fellow coders! Welcome to `get_next_line`, my third expedition at Ecole 42. In this project, I've delved into the world of file input/output in C, crafting a versatile function that can read multiple file descriptors simultaneously.
-
-## Overview
-
-`get_next_line` is a function designed to read a line from a file descriptor and handle multiple file descriptors concurrently. It utilizes static variables to maintain the state between successive calls, allowing for efficient and seamless reading of text from various sources. Importantly, if the file is not too large, the function can read an entire file descriptor over multiple calls.
+# get_next_line
 
 # Table of Contents
+1. [Description](#description)
+2. [Installation Instructions](#installation-instructions)
+3. [Usage Instructions](#usage-instructions)
+4. [Key Functions](#key-functions)
+5. [Contribution Guidelines](#contribution-guidelines)
+6. [Acknowledgments](#acknowledgments)
+7. [License Information](#license-information)
+8. [Contact Information](#contact-information)
+9. [Project Development](#project-development)
 
-- [get_next_line - Reading a line from a fd is way too tedious](#get_next_line---reading-a-line-from-a-fd-is-way-too-tedious)
-  - [Overview](#overview)
-  - [Key Features](#key-features)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
+## Description
 
-## Key Features
+"Get Next Line" is a reliable and efficient function written in C, designed to read any valid file line by line until the end. This function is particularly useful for developers who need to read content from a file, a standard input, or even from a network connection, line by line.
 
-- **Simultaneous Reading:** Read from multiple file descriptors without losing track of each file's position.
-- **Dynamic Buffering:** Dynamically allocate memory for each line, accommodating variable line lengths.
-- **Sequential File Reading:** If the file is not too large, read an entire file descriptor over multiple calls.
-- **Customizable Buffer Size:** Define the buffer size during compilation with `-D BUFFER_SIZE=N`.
-- **No Memory Leaks:** Carefully manage memory allocation to ensure there are no memory leaks during execution.
+One of the main features of "Get Next Line" is its focus on robustness and error handling. The function is designed to handle edge cases, such as failed memory allocation or null pointers, preventing segmentation faults and making your code more stable and reliable.
 
-## Getting Started
+This function is part of a larger project and serves as a cornerstone for many of my applications. By using "Get Next Line", you're not just using a function, but a tool that has been refined and proven in numerous projects.
 
-To use `get_next_line`, follow these instructions:
+## Installation Instructions##
 
-### Prerequisites
+Before you begin, ensure you have met the following requirements:
 
-Before you begin, ensure you have a C compiler installed, such as [Clang](https://clang.llvm.org/) or [GCC](https://gcc.gnu.org/).
+1. **Download the library**: You can clone the library from GitHub using the following command in your terminal:
+```bash
+git clone https://github.com/Vpekdas/get_next_line.git
+```
 
-### Installation
+2. **Install a C compiler**: If you don't already have a C compiler installed, you will need one to build and use this library. You can install the [Clang compiler](https://clang.llvm.org).
+   
+- On a Mac, you should already have Clang installed as part of Xcode Command Line Tools. You can confirm this by running clang --version in your terminal. If it's not installed, you'll be prompted to install it.
 
-1. Clone the repository:
+- On a Linux machine, use the package manager for your distribution. For example, on Ubuntu:
+  ```bash
+  sudo apt install clang
+  ```
 
-    ```bash
-    git clone https://github.com/Vpekdas/get_next_line
-    ```
+## Usage Instructions
 
-2. Navigate to the project directory:
+The files get_next_line.c and get_next_line_bonus.c are identical. I have uploaded the same file under two different names to accommodate the requirements of 'Moulinette', an algorithm that automatically grades our projects.
 
-    ```bash
-    cd get_next_line
-    ```
+1. **Include the library in your project**: Add the following line at the top of your source code files:
+```c
+#include "get_next_line.h"
+```
 
-3. Compile the project with a custom buffer size (e.g., 42) using `cc`:
+2. **Compile your project**: When compiling your project, you can give a buffer size. Here's an example:
+```bash
+clang -D BUFFER_SIZE=1024 your_program.c get_next_line.c get_next_line_utils.c -o your_project_name
+```
 
-    ```bash
-    cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c main.c -o gnl_test
-    ```
+## Key Functions
+Here are some of the key functions provided by this library:
 
-    Replace `42` in `-D BUFFER_SIZE=42` with your desired buffer size.
+- `char	*get_next_line(int fd)`: This function returns a line read from a file descriptor each time it's called. If there are no more lines to read, it returns NULL.
+```c
+char *get_next_line(int fd)
+{
+static char *buffer[10496]; // Buffer to store the data read from the file. This is a char ** to allow reading from multiple file descriptors simultaneously.
+    char *line; // String to store the line to be returned
 
-## Usage
+    // Check for invalid file descriptor or buffer size
+    if (fd == -1 || BUFFER_SIZE <= 0)
+        return (NULL);
 
-1. Include the `get_next_line.h` header file in your source files:
+    // Read from the file descriptor into the buffer
+    buffer[fd] = read_fd(fd, buffer[fd]);
 
-    ```c
-    #include "get_next_line.h"
-    ```
+    // If there's nothing more to read, return NULL
+    if (!buffer[fd])
+        return (NULL);
 
-2. Call `get_next_line` function in your code to read lines from file descriptors:
+    // Get the next line from the buffer
+    line = ft_line(buffer[fd]);
 
-    ```c
-    #include "get_next_line.h"
+    // Update the buffer to remove the line that was just read
+    buffer[fd] = ft_remaining_char_buffer(buffer[fd]);
 
-    int main() {
-        int fd1 = open("file1.txt", O_RDONLY);
-        int fd2 = open("file2.txt", O_RDONLY);
+    // Return the line
+    return (line);
+}
+```
 
-        char *line1;
-        char *line2;
+1. The first step is to read the file in chunks, each of size equal to the buffer size, and then concatenate these chunks with the previously read line. On the first call, a line of 1 byte is allocated with calloc. If a newline character (\n) is found in the buffer, the reading process stops and we proceed to the next step.
 
-        while (get_next_line(fd1, &line1) > 0) {
-            // Process lines as needed...
-            free(line1);
-        }
+```c
+char	*read_fd(int fd, char *line)
+{	
+	int		bytes;
+	char	*buffer;
 
-        while (get_next_line(fd2, &line2) > 0) {
-            // Process lines as needed...
-            free(line2);
-        }
+	bytes = 1;
+	if (!line)
+		line = ft_calloc(1, 1);
+	buffer = malloc(BUFFER_SIZE + 1);
+	while (bytes > 0)
+	{
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes == -1)
+		{
+			free(line);
+			free(buffer);
+			return (NULL);
+		}
+		buffer[bytes] = '\0';
+		line = ft_strjoin_and_free(line, buffer);
+		if (!line)
+			return (NULL);
+		if (ft_strchr(buffer, '\n'))
+			break ;
+	}
+	free(buffer);
+	return (line);
+}
+```
 
-        close(fd1);
-        close(fd2);
+2. The second step involves receiving the concatenated string from the previous function. We then count characters until a newline character (\n) is encountered, which gives us the length of the string to allocate with malloc. After that, we copy characters until we reach a \n.
 
-        return 0;
-    }
-    ```
+```c
+char	*ft_line(char *buffer)
+{
+	char	*line;
+	int		i;
 
-## License
+	i = 0;
+	if (!buffer || *buffer == '\0')
+		return (NULL);
+	line = ft_calloc(ft_count_len_line(buffer) + 2, 1);
+	if (!line)
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	if (buffer[i] && buffer[i] == '\n')
+		line[i] = '\n';
+	return (line);
+}
+```
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+3. The final step is to update the static pointer buffer. We will update the buffer with characters that come after the newline character (\n).
+
+```c
+char	*ft_remaining_char_buffer(char *buffer)
+{
+	int		i;
+	int		j;
+	char	*line;
+
+	i = ft_count_len_line(buffer);
+	j = 0;
+	if (buffer[i] == 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	line = ft_calloc((ft_strlen(buffer) - i + 1), 1);
+	if (!line)
+		return (NULL);
+	i++;
+	while (buffer[i])
+		line[j++] = buffer[i++];
+	free(buffer);
+	return (line);
+}
+```
+
+
+## Acknowledgments
+
+I would like to express my deepest appreciation to all those who provided the possibility to complete this project. A special gratitude I give to the contributors of the following tester programs:
+
+* [gnlTester]([https://github.com/Tripouille/libftTester](https://github.com/Tripouille/gnlTester))
+
+This tester programs were instrumental in the development process. They not only helped me identify and correct errors quickly, but also introduced me to new testing methodologies and considerations I hadn't previously encountered. Their insights and expertise contributed significantly to the completion of this project.
+
+## Contribution Guidelines
+
+I welcome contributions from everyone. Here are some guidelines to follow:
+
+1. **Fork the repository**: Start by forking the repository to your own GitHub account.
+
+2. **Clone the repository**: Clone the forked repository to your local machine.
+```bash
+git clone https://github.com/Vpekdas/get_next_line.git
+```
+
+3. **Create a new branch**: Create a new branch for each feature or bug fix you're working on. Do not make changes directly on the master branch
+```bash
+git checkout -b your-branch-name
+```
+
+4. **Make your changes**: Make your changes in the new branch. Ensure your code follows the [norminette](https://github.com/42School/norminette).
+
+5. **Commit your changes**: Commit your changes regularly with clear, descriptive commit messages.
+```bash
+git commit -m "Your commit message"
+```
+
+6. **Push your changes**: Push your changes to your forked repository on GitHub.
+```bash
+git push origin your-branch-name
+```
+
+7. **Create a pull request**: Go to your forked repository on GitHub and create a new pull request against the master branch.
+Please note that this project has a code of conduct, and contributors are expected to adhere to it. Any contributions you make are greatly appreciated.
+
+## License Information
+
+This project is licensed under the [MIT License](LICENSE).
+
+The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don’t hold you liable.
+
+For the full license text, see the [LICENSE](LICENSE) file.
+
+## Contact Information
+
+If you have any questions, issues, or if you want to contribute, feel free to reach out to me:
+
+- GitHub: [@Vpekdas](https://github.com/Vpekdas)
+- Discord: Captain-Plouf#7811
+
+## Project Development
+
+This project started as a simple tool for personal use and is evolving into a full-fledged library. While it has been a solo endeavor so far, contributions from the community are welcome and appreciated.
+
+### Current Status
+
+The project is currently complete and not in active development. However, maintenance and updates will be done as needed.
+
+### Future Plans
+
+Plans for future development include adding more functions, improving performance, and expanding the documentation.
+
+### Known Issues
+
+There are currently no known issues. If you find a bug, please report it in the [issue tracker](https://github.com/Vpekdas/libft/issues).
+
+### Contributing
+
+Contributions are always welcome! See the [Contribution Guidelines](#contribution-guidelines) for more information.
