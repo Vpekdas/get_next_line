@@ -173,7 +173,7 @@ char	*ft_remaining_char_buffer(char *buffer)
 
 I would like to express my deepest appreciation to all those who provided the possibility to complete this project. A special gratitude I give to the contributors of the following tester programs:
 
-* [gnlTester]([https://github.com/Tripouille/libftTester](https://github.com/Tripouille/gnlTester))
+[gnlTester](https://github.com/Tripouille/gnlTester)
 
 This tester programs were instrumental in the development process. They not only helped me identify and correct errors quickly, but also introduced me to new testing methodologies and considerations I hadn't previously encountered. Their insights and expertise contributed significantly to the completion of this project.
 
