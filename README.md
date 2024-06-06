@@ -82,10 +82,8 @@ static char *buffer[10496]; // Buffer to store the data read from the file. This
     return (line);
 }
 ```
-
-1. The first step is to read the file in chunks, each of size equal to the buffer size, and then concatenate these chunks with the previously read line. On the first call, a line of 1 byte is allocated with calloc. If a newline character (\n) is found in the buffer, the reading process stops and we proceed to the next step.
-
-```c
+* The first step is to read the file in chunks, each of size equal to the buffer size, and then concatenate these chunks with the previously read line. On the first call, a line of 1 byte is allocated with calloc. If a newline character (\n) is found in the buffer, the reading process stops and we proceed to the next step.
+```C
 char	*read_fd(int fd, char *line)
 {	
 	int		bytes;
@@ -115,8 +113,7 @@ char	*read_fd(int fd, char *line)
 	return (line);
 }
 ```
-
-2. The second step involves receiving the concatenated string from the previous function. We then count characters until a newline character (\n) is encountered, which gives us the length of the string to allocate with malloc. After that, we copy characters until we reach a \n.
+* The second step involves receiving the concatenated string from the previous function. We then count characters until a newline character (\n) is encountered, which gives us the length of the string to allocate with malloc. After that, we copy characters until we reach a \n.
 
 ```c
 char	*ft_line(char *buffer)
@@ -140,9 +137,7 @@ char	*ft_line(char *buffer)
 	return (line);
 }
 ```
-
-3. The final step is to update the static pointer buffer. We will update the buffer with characters that come after the newline character (\n).
-
+* The final step is to update the static pointer buffer. We will update the buffer with characters that come after the newline character (\n).
 ```c
 char	*ft_remaining_char_buffer(char *buffer)
 {
@@ -167,7 +162,6 @@ char	*ft_remaining_char_buffer(char *buffer)
 	return (line);
 }
 ```
-
 
 ## Acknowledgments
 
@@ -237,7 +231,7 @@ Plans for future development include adding more functions, improving performanc
 
 ### Known Issues
 
-There are currently no known issues. If you find a bug, please report it in the [issue tracker](https://github.com/Vpekdas/libft/issues).
+There are currently no known issues. If you find a bug, please report it in the [issue tracker](https://github.com/Vpekdas/get_next_line/issues).
 
 ### Contributing
 
