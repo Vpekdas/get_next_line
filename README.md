@@ -13,7 +13,7 @@
 
 ## Description
 
-"Get Next Line" is a reliable and efficient function written in C, designed to read any valid file line by line until the end. This function is particularly useful for developers who need to read content from a file, a standard input, or even from a network connection, line by line.
+"Get_Next_Line" is a reliable and efficient function written in C, designed to read any valid file line by line until the end. This function is particularly useful for developers who need to read content from a file, a standard input, or even from a network connection, line by line.
 
 One of the main features of "Get Next Line" is its focus on robustness and error handling. The function is designed to handle edge cases, such as failed memory allocation or null pointers, preventing segmentation faults and making your code more stable and reliable.
 
