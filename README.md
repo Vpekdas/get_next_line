@@ -19,7 +19,7 @@ One of the main features of "Get Next Line" is its focus on robustness and error
 
 This function is part of a larger project and serves as a cornerstone for many of my applications. By using "Get Next Line", you're not just using a function, but a tool that has been refined and proven in numerous projects.
 
-## Installation Instructions##
+## Installation Instructions
 
 Before you begin, ensure you have met the following requirements:
 
