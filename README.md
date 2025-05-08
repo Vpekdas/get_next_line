@@ -63,8 +63,6 @@ To report issues, please create an issue here:  [issue tracker](https://github.c
 
 If you'd like to contribute, please follow the steps outlined in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-6. **Create a pull request**: Go to your forked repository on GitHub and create a new pull request against the master branch.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
