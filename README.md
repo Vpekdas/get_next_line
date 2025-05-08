@@ -16,8 +16,6 @@ As part of the 42 curriculum, this project comes with strict coding guidelines:
 - A strict rule of 5 functions per file and 25 lines per function is enforced.
 - There are restrictions such as no assignments on the same line and a focus on clean, maintainable code.
 
-This project provides hands-on experience with low-level graphical programming and reinforces good coding practices under challenging constraints.
-
 ### Purpose
 
 The get_next_line function works similarly to std::getline in C++, allowing you to read input line by line from a file descriptor. However, unlike std::getline, you are responsible for freeing the returned memory yourself. The function reads characters until a newline (\n) or null terminator (\0) is encountered.
